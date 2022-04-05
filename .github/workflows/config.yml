@@ -29,5 +29,9 @@ jobs:
           python-version: ${{ matrix.python_version }}
           architecture: x64
       - name: "install dependencies"
+        env:
+          TOXENV: ${{ matrix.tox_env }}
         run: pip install tox
       - run: tox
+        env:
+          TOXENV: ${{ matrix.tox_env }}
