@@ -32,7 +32,5 @@ jobs:
           pip install -U pip setuptools
           pip install tox
       - run: |
-          python -m tox
+          tox
         name: "run tox"
-        env:
-          TOXENV: ${{ matrix.tox_env }}
