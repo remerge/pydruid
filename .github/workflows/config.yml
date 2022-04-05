@@ -18,11 +18,13 @@ jobs:
             tox_env: "py38"
     steps:
       - uses: actions/checkout@v2
-      - name: Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v2
+      - name: Install pipenv
+        run: pipx install pipenv
+      - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python_version }}
-          architecture: x64
+          cache: 'pipenv'
+      - run: pipenv install
       - name: "install dependencies"
         env:
           TOXENV: ${{ matrix.tox_env }}
@@ -32,6 +34,7 @@ jobs:
           pip install -U pip setuptools
           pip install tox
       - run: |
-          export TOXENV=${{ matrix.tox_env }}
           tox
         name: "run tox"
+        env:
+          TOXENV: ${{ matrix.tox_env }}
