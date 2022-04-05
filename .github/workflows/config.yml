@@ -28,7 +28,7 @@ jobs:
           TOXENV: ${{ matrix.tox_env }}
         run: |
           sudo apt-get update
-          sudo apt-get install libgnutls28-dev
+          sudo apt-get install libgnutls28-dev libcurl-devel
           pip install tox
       - run: |
           tox
