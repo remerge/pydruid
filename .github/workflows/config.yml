@@ -9,7 +9,12 @@ jobs:
     strategy:
       matrix:
         include:
-
+          - python_version: 3.6
+            tox_env: "black"
+          - python_version: 3.6
+            tox_env: "flake8"
+          - python_version: 3.6
+            tox_env: "isort"
           - python_version: 3.6
             tox_env: "py36"
           - python_version: 3.7
