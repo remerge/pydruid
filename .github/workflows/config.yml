@@ -29,9 +29,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libgnutls28-dev
-          pip install tox tox-gh-actions
+          pip install tox
       - run: |
-          tox
+          python -m tox
         name: "run tox"
         env:
           TOXENV: ${{ matrix.tox_env }}
