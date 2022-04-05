@@ -33,6 +33,9 @@ jobs:
           pip install -U pip setuptools
           pip install tox
       - run: |
+          pip install --upgrade pip
+          python3.8 -m venv env
+          source env/bin/activate
           tox
         name: "run tox"
         env:
