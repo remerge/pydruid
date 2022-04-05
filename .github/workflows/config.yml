@@ -23,7 +23,6 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python_version }}
-      - run: pipenv install
       - name: "install dependencies"
         env:
           TOXENV: ${{ matrix.tox_env }}
@@ -33,10 +32,6 @@ jobs:
           pip install -U pip setuptools
           pip install tox
       - run: |
-          pip install --upgrade pip
-          pip install setuptools==57.5.0
-          python3.8 -m venv env
-          source env/bin/activate
           tox
         name: "run tox"
         env:
