@@ -1,0 +1,42 @@
+name: CI
+
+on: [push]
+
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+    name: test
+    strategy:
+      matrix:
+        include:
+          - python_version: 3.6
+            tox_env: "black"
+          - python_version: 3.6
+            tox_env: "flake8"
+          - python_version: 3.6
+            tox_env: "isort"
+          - python_version: 3.6
+            tox_env: "py36"
+          - python_version: 3.7
+            tox_env: "py37"
+          - python_version: 3.8
+            tox_env: "py38"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install pipenv
+        run: pipx install pipenv
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python_version }}
+      - name: "install dependencies"
+        env:
+          TOXENV: ${{ matrix.tox_env }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install libgnutls28-dev libcurl4-openssl-dev libssl-dev
+          pip install tox
+      - run: |
+          tox
+        name: "run tox"
+        env:
+          TOXENV: ${{ matrix.tox_env }}
